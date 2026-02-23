@@ -6,18 +6,12 @@ const MIN_PLACES = 2;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-/**
- * Parse "HH:MM" into total minutes since midnight.
- */
 function parseTime(hhmm) {
     const [h, m] = hhmm.split(":").map(Number);
     return h * 60 + m;
 }
 
-/**
- * Generate all permutations of an array.
- * For N≤3 produces at most 6 orderings.
- */
+
 function permutations(arr) {
     if (arr.length <= 1) return [arr];
     const result = [];
@@ -36,14 +30,7 @@ function selectCandidates(scoredPlaces) {
 }
 
 // ─── Phase 4: Sequence ───────────────────────────────────────────────────────
-/**
- * Simulate one permutation and determine if it is feasible.
- *
- * @param {object[]} orderedPlaces
- * @param {object}   startLocation  { lat, lng }
- * @param {number}   startMinutes   minutes since midnight
- * @param {number}   budgetMinutes
- */
+
 function simulatePermutation(orderedPlaces, startLocation, startMinutes, budgetMinutes) {
     let currentPos = startLocation;
     let currentTime = startMinutes;
