@@ -10,16 +10,7 @@ const CROWD_SCORES = { low: 30, medium: 15, high: 0 };
 const WALK_SPEED_KMH = 4.5;
 
 // ─── Phase 1: Filter ────────────────────────────────────────────────────────
-/**
- * Returns places that pass all order-invariant hard constraints.
- *
- * user.avoid can contain:
- *   - "crowded"        → removes places with crowd_level "high"
- *   - any type string  → removes places of that type (e.g. "bar", "shopping")
- *
- * @param {object[]} places
- * @param {object}   user   { preferences, avoid, ... }
- */
+
 function filter(places, user) {
     const avoidSet = new Set((user.avoid || []).map((a) => a.toLowerCase()));
     const avoidCrowded = avoidSet.has("crowded");
@@ -42,14 +33,7 @@ function filter(places, user) {
 }
 
 // ─── Phase 2: Score ─────────────────────────────────────────────────────────
-/**
- * Returns a copy of each place with an added `score` field, sorted descending.
- * Tie-break: alphabetically by place id (ensures full determinism).
- *
- * @param {object[]} places         Already filtered candidates
- * @param {object}   startLocation  { lat, lng }
- * @param {object}   user           { preferences, avoid, ... }
- */
+
 function scoreAndRank(places, startLocation, user) {
     // preferences: match against type OR crowd vibe tags ("quiet" → low crowd)
     const prefSet = new Set((user.preferences || []).map((p) => p.toLowerCase()));
@@ -92,9 +76,7 @@ function scoreAndRank(places, startLocation, user) {
 }
 
 // ─── Travel time helper ──────────────────────────────────────────────────────
-/**
- * Travel time in minutes between two { lat, lng } points at walking speed.
- */
+
 function travelMinutes(from, to) {
     return (haversineKm(from, to) / WALK_SPEED_KMH) * 60;
 }
