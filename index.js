@@ -1,16 +1,3 @@
-/**
- * index.js — CLI entry point
- *
- * Usage:
- *   node index.js
- *   node index.js --input data/input.json
- *
- * Reads a single JSON file matching the assignment spec:
- *   { user: { lat, lng, time_available_minutes, preferences, avoid, start_time }, places: [...] }
- *
- * Prints the result as JSON to stdout.
- */
-
 "use strict";
 
 const fs = require("fs");
