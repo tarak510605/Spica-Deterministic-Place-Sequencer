@@ -54,15 +54,16 @@ Union preferences (anyone's interest counts), intersect avoids (strictest wins),
 
 ## Optional — App integration
 
-Logic belongs on the server. Place data and hours are server-side, computation is fast, and central weights can be tuned without app updates.
+**Client vs server:** Logic belongs on the server. Place data and hours are server-side, computation is fast, and central weights can be tuned without pushing an app update.
 
+**API shape:**
 ```
 POST /api/itinerary
 Body:    { user: { lat, lng, start_time, time_available_minutes, preferences, avoid }, places: [...] }
 Response: { sequence, total_time_minutes, explanation }
 ```
 
-For production: cache scored place lists, store last itinerary for offline, re-plan when user deviates mid-trip.
+**Production constraints:** Cache scored place lists between requests (scores are stable). Store the last itinerary locally for offline access. Re-call the API with updated location and remaining time if the user deviates mid-trip. Return structured error codes so the client can handle "no valid itinerary" gracefully.
 
 ---
 
